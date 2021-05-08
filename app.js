@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     next();
 }); 
 
-app.app('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send("Working!");
 })
 
