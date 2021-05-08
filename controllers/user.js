@@ -5,6 +5,7 @@ function addUser(req, res) {
 
     if(params.userName && params.email && params.password) {
         const user = new User({ 
+            id: null,
             userName: params.userName, 
             email: params.email, 
             password: params.password, 
@@ -43,11 +44,12 @@ function addUser(req, res) {
 function getUserByUserOrEmailAndPassword(req, res) {
     var params = req.body;
 
-    if(params.emailOrUserName && params.password) {
+    if(params.email && params.password) {
         
         const user = new User({
-            userName: params.emailOrUserName,
-            email: params.emailOrUserName, 
+            id: null,
+            userName: params.email,
+            email: params.email, 
             password: params.password,
             imageUrl: null
         });
@@ -62,7 +64,7 @@ function getUserByUserOrEmailAndPassword(req, res) {
                 }
             } else {
                 if(data) {
-                    return res.status(200).send({ user:data }); 
+                    return res.status(200).send({ data }); 
                 } else {
                     return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
                 }
@@ -83,7 +85,7 @@ function getUserById(req, res) {
             }
         } else {
             if(data) {
-                return res.status(200).send({ user:data }); 
+                return res.status(200).send(data); 
             } else {
                 return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
             }
