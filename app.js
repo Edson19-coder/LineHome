@@ -19,6 +19,10 @@ app.use((req, res, next) => {
     next();
 }); 
 
+app.app('/', (req, res) => {
+    res.send("Working!");
+})
+
 //rutas
 app.use('/api', user_routes);
 
