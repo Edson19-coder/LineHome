@@ -30,7 +30,7 @@ User.checkRegisterUser = (newUser, result) => {
         }
 
         if(res.length) {
-            console.log("found customer: ", res[0]);
+            console.log("found user: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -49,7 +49,7 @@ User.getUserByUserOrEmailAndPassword = (user, result) => {
         }
 
         if(res.length) {
-            console.log("found customer: ", res[0]);
+            console.log("found user: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -68,7 +68,7 @@ User.getUserById = (id, result) => {
         }
 
         if(res.length) {
-            console.log("found customer: ", res[0]);
+            console.log("found user: ", res[0]);
             result(null, res[0]);
             return;
         }

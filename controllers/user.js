@@ -64,7 +64,7 @@ function getUserByUserOrEmailAndPassword(req, res) {
                 }
             } else {
                 if(data) {
-                    return res.status(200).send({ data }); 
+                    return res.status(200).send({ user:data }); 
                 } else {
                     return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
                 }
@@ -85,7 +85,7 @@ function getUserById(req, res) {
             }
         } else {
             if(data) {
-                return res.status(200).send(data); 
+                return res.status(200).send({ user:data }); 
             } else {
                 return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
             }
