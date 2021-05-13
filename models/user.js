@@ -16,8 +16,9 @@ User.addUser = (newUser, result) => {
             return;
         }
 
-        console.log("created user: ", { id: res.insertId, ...newUser });
-        result(null, { id: res.insertId, ...newUser });
+        newUser.id = res.insertId;
+        console.log("created user: ", newUser);
+        result(null, newUser );
     });
 };
 

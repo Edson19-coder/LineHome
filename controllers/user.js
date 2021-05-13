@@ -21,7 +21,8 @@ function addUser(req, res) {
                         if(error) return res.status(500).send({ message: 'Error al crear el usuario' } );
             
                         if(data) { 
-                            return res.status(200).send({ user:data }); 
+                            
+                            return res.status(200).send( data ); 
                         } else {
                             return res.status(404).send({ message: 'No se ha registrado el usuario.' });
                         }
@@ -64,7 +65,7 @@ function getUserByUserOrEmailAndPassword(req, res) {
                 }
             } else {
                 if(data) {
-                    return res.status(200).send({ data }); 
+                    return res.status(200).send(data ); 
                 } else {
                     return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
                 }

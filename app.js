@@ -1,12 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
+
 var app = express();
 
 //cargar rutas
 var user_routes = require('./routes/user');
 
 //middlewares
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json()); //Cada una de las peticiones de convierten en un formato JSON.
 
