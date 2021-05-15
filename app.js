@@ -9,8 +9,8 @@ var user_routes = require('./routes/user');
 
 //middlewares
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json()); //Cada una de las peticiones de convierten en un formato JSON.
+app.use(bodyParser.json({limit: '500mb'}));
+app.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
 
 //acceso cors
 app.use((req, res, next) => {
