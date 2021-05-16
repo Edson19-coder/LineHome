@@ -6,6 +6,9 @@ var app = express();
 
 //cargar rutas
 var user_routes = require('./routes/user');
+var publication_routes = require('./routes/publication');
+var publication_photo_routes = require('./routes/publication_photo');
+var publication_evaluation_routes = require('./routes/publication_evaluation');
 
 //middlewares
 
@@ -27,6 +30,9 @@ app.get('/', (req, res) => {
 
 //rutas
 app.use('/api', user_routes);
+app.use('/api', publication_routes);
+app.use('/api', publication_photo_routes);
+app.use('/api', publication_evaluation_routes);
 
 //exportar 
 module.exports = app;

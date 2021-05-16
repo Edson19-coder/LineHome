@@ -76,7 +76,14 @@ User.getUserById = (id, result) => {
         }
 
         if(res.length) {
-            console.log("found customer: ", res[0]);
+
+            if(res[0].imageUrl != null) {
+                var buffer = new Buffer.from( res[0].imageUrl, 'binary' );
+                var bufferBase64 = buffer.toString('base64');
+                res[0].imageUrl = bufferBase64;
+            }
+
+            console.log("found user: ", res[0]);
             result(null, res[0]);
             return;
         }
