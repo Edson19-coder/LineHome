@@ -1,5 +1,7 @@
 const sql = require("../db/db");
 
+var moment = require('moment');
+
 const Publication = function(publication) {
     this.id = publication.id;
     this.titlePublication = publication.titlePublication;
@@ -8,6 +10,7 @@ const Publication = function(publication) {
     this.location = publication.location;
     this.category = publication.category;
     this.owner = publication.owner;
+    this.createdAt = publication.createdAt; 
 }
 
 Publication.addPublication = (newPublication, result) => {
@@ -19,6 +22,7 @@ Publication.addPublication = (newPublication, result) => {
         }
 
         newPublication.id = res.insertId;
+        newPublication.createdAt = moment.unix(newPublication.createdAt).format("MM/DD/YYYY");
         console.log("created publication: ", newPublication);
         result(null, newPublication);
     });
@@ -33,6 +37,7 @@ Publication.getPublicationById = (publicationId, result) => {
         }
 
         if(res.length) {
+            res[0].createdAt =  moment.unix(res[0].createdAt).format("MM/DD/YYYY");
             console.log("found publication: ", res[0]);
             result(null, res[0]);
             return;
@@ -52,6 +57,9 @@ Publication.getPublications = (result) => {
         }
 
         if(res.length) {
+            res.forEach(element => {
+                element.createdAt =  moment.unix(element.createdAt).format("MM/DD/YYYY");
+            });
             console.log("found publication: ", res);
             result(null, res);
             return;
@@ -92,6 +100,9 @@ Publication.getPublicationByOwner = (ownerId, result) => {
         }
 
         if(res.length) {
+            res.forEach(element => {
+                element.createdAt =  moment.unix(element.createdAt).format("MM/DD/YYYY");
+            });
             console.log("found publication: ", res);
             result(null, res);
             return;

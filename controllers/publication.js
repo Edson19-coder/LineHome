@@ -1,5 +1,7 @@
 const Publication = require('../models/publication');
 
+var moment = require('moment');
+
 function addPublication(req, res) {
     var params = req.body;
 
@@ -11,7 +13,8 @@ function addPublication(req, res) {
             price: params.price,
             location: params.location,
             category: params.category, 
-            owner: params.owner 
+            owner: params.owner,
+            createdAt: moment().unix()
         })
 
         Publication.addPublication(publication, (error, data) => {
@@ -81,7 +84,8 @@ function updatePublicationById(req, res) {
             price: update.price,
             location: update.location,
             category: update.category, 
-            owner: null 
+            owner: null, 
+            createdAt: null
         })
 
         Publication.updatePublicationById(publication, (error, data) => {
