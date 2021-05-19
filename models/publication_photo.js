@@ -15,7 +15,7 @@ PublicationPhoto.addPublicationPhoto = (newPublicationPhoto, result) => {
         }
 
         newPublicationPhoto.id = res.insertId;
-        console.log("created publication photo: ", newPublicationPhoto);
+        //console.log("created publication photo: ", newPublicationPhoto);
         result(null, newPublicationPhoto);
     });
 };
@@ -27,17 +27,20 @@ PublicationPhoto.getPublicationPhotoByPublicationId = (publicationId, result) =>
             result(error, null);
             return;
         }
-
+        var images = [];
         if(res.length) {
 
-            if(res[0].image != null) {
-                var buffer = new Buffer.from( res[0].image, 'binary' );
-                var bufferBase64 = buffer.toString('base64');
-                res[0].image = bufferBase64;
+                for(let i = 0; i < res.length ; i++){
+                    if(res[i].image != null) {
+                         var buffer = new Buffer.from( res[i].image, 'binary' );
+                        var bufferBase64 = buffer.toString('base64');
+                        res[i].image = bufferBase64;
+                        
+                        images.push(res[i]);
             }
-
-            console.log("found publication photo: ", res[0]);
-            result(null, res[0]);
+        }
+            //console.log("found publication photo: ", res[0]);
+            result(null,images );
             return;
         }
         // not found user with the id
@@ -61,7 +64,7 @@ PublicationPhoto.getFirstImageByPublication = (publicationId, result) => {
                 res[0].image = bufferBase64;
             }
 
-            console.log("found publication photo: ", res[0]);
+         // console.log("found publication photo: ", res[0]);
             result(null, res[0]);
             return;
         }

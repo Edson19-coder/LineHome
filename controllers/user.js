@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 var fs = require('fs');
 var path = require('path');
-const { param } = require('../routes/user');
+//const { param } = require('../routes/user');
 
 
 function addUser(req, res) {

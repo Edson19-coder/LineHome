@@ -23,7 +23,7 @@ Publication.addPublication = (newPublication, result) => {
 
         newPublication.id = res.insertId;
         newPublication.createdAt = moment.unix(newPublication.createdAt).format("MM/DD/YYYY");
-        console.log("created publication: ", newPublication);
+       // console.log("created publication: ", newPublication);
         result(null, newPublication);
     });
 };
@@ -38,7 +38,7 @@ Publication.getPublicationById = (publicationId, result) => {
 
         if(res.length) {
             res[0].createdAt =  moment.unix(res[0].createdAt).format("MM/DD/YYYY");
-            console.log("found publication: ", res[0]);
+            //console.log("found publication: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -60,7 +60,7 @@ Publication.getPublications = (result) => {
             res.forEach(element => {
                 element.createdAt =  moment.unix(element.createdAt).format("MM/DD/YYYY");
             });
-            console.log("found publication: ", res);
+            //console.log("found publication: ", res);
             result(null, res);
             return;
         }
@@ -86,7 +86,7 @@ Publication.updatePublicationById = (publication, result) => {
             return;
           }
     
-          console.log("updated publication: ", { id: publication.id, ...publication });
+          //console.log("updated publication: ", { id: publication.id, ...publication });
           result(null, { id: publication.id, ...publication });
     });
 };
@@ -103,7 +103,7 @@ Publication.getPublicationByOwner = (ownerId, result) => {
             res.forEach(element => {
                 element.createdAt =  moment.unix(element.createdAt).format("MM/DD/YYYY");
             });
-            console.log("found publication: ", res);
+            //console.log("found publication: ", res);
             result(null, res);
             return;
         }

@@ -16,7 +16,7 @@ PublicationEvaluation.addEvaluation = (newEvaluation, result) => {
         }
 
         newEvaluation.id = res.insertId;
-        console.log("created evaluation: ", newEvaluation);
+        //console.log("created evaluation: ", newEvaluation);
         result(null, newEvaluation);
     });
 };
@@ -30,7 +30,7 @@ PublicationEvaluation.getEvaluationByPublication = (publicationId, result) => {
         }
 
         if(res.length) {
-            console.log("found evaluation: ", res[0]);
+            //console.log("found evaluation: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -49,7 +49,7 @@ PublicationEvaluation.getEvaluationByUserAndPublication = (evaluation, result) =
         }
 
         if(res.length) {
-            console.log("found evaluation: ", res[0]);
+           // console.log("found evaluation: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -73,7 +73,7 @@ PublicationEvaluation.updateEvaluationByUser = (updateEvaluation, result) => {
             return;
           }
     
-          console.log("updated publication: ", { id: updateEvaluation.id, ...updateEvaluation });
+         // console.log("updated publication: ", { id: updateEvaluation.id, ...updateEvaluation });
           result(null, { id: updateEvaluation.id, ...updateEvaluation });
     })
 };

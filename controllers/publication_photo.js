@@ -22,7 +22,7 @@ function addPublicationPhoto(req, res) {
             }
         });
     } else {
-        return res.status(200).send({message: 'Ingresa los datos faltantes.'});
+        return res.status(200).send({message: 'Ingresa los datos faltantes.' });
     }
 }
 

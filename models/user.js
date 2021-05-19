@@ -31,7 +31,7 @@ User.checkRegisterUser = (newUser, result) => {
         }
 
         if(res.length) {
-            console.log("found customer: ", res[0]);
+           // console.log("found customer: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -42,7 +42,7 @@ User.checkRegisterUser = (newUser, result) => {
 };
 
 User.getUserByUserOrEmailAndPassword = (user, result) => {
-    sql.query(`SELECT * FROM user WHERE userName = "${user.userName}" OR email = "${user.email}" AND password = "${user.password}"`, (error, res) => {
+    sql.query(`SELECT * FROM user WHERE userName = "${user.userName}" AND password = "${user.password}" OR email = "${user.email}" AND password = "${user.password}"`, (error, res) => {
         if(error) {
             console.log("error: ", error);
             result(error, null);
@@ -57,7 +57,7 @@ User.getUserByUserOrEmailAndPassword = (user, result) => {
                 res[0].imageUrl = bufferBase64;
             }
 
-            console.log("found customer: ", res[0]);
+            //console.log("found customer: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -83,7 +83,7 @@ User.getUserById = (id, result) => {
                 res[0].imageUrl = bufferBase64;
             }
 
-            console.log("found user: ", res[0]);
+            //console.log("found user: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -127,7 +127,7 @@ User.uploadImage = (id, imageBlop, result) => {
             return;
         }
 
-        console.log("updated user: ", { id: id});
+        //console.log("updated user: ", { id: id});
     });
 };
 
