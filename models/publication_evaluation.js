@@ -50,10 +50,12 @@ PublicationEvaluation.getEvaluationByUserAndPublication = (evaluation, result) =
 
         if(res.length) {
            // console.log("found evaluation: ", res[0]);
+         
             result(null, res[0]);
             return;
         }
         // not found user with the id
+        
         result({ kind: "not_found" }, null);
      });
 };

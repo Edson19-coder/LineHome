@@ -46,8 +46,8 @@ function getEvaluationByPublication(req, res) {
 }
 
 function getEvaluationByUserAndPublication(req, res) {
-    var params = req.body;
-
+    var params = req.params;
+ 
     if(params.publicationId && params.userId) {
         const publicationEvaluation = new PublicationEvaluation({
             id: null,
@@ -55,6 +55,7 @@ function getEvaluationByUserAndPublication(req, res) {
             userId: params.userId,
             evaluation: null
         });
+       
 
         PublicationEvaluation.getEvaluationByUserAndPublication(publicationEvaluation, (error, data) => {
             if(error) {
