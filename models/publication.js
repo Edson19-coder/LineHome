@@ -113,4 +113,26 @@ Publication.getPublicationByOwner = (ownerId, result) => {
     });
 };
 
+Publication.getSearchPublication = (parametros, result) => {
+    sql.query(`CALL proc_search_publication(?, ?, ?);`, [parametros.text, parametros.categorie, parametros.location], (error, res) => {
+        if(error) {
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+
+        if(res.length) {
+            res.forEach(element => {
+                element.createdAt =  moment.unix(element.createdAt).format("MM/DD/YYYY");
+            });
+            //console.log("found publication: ", res);
+            result(null, res);
+            return;
+        }
+
+        // not found user with the id
+        result({ kind: "not_found" }, null);
+    });
+};
+
 module.exports = Publication;

@@ -13,5 +13,6 @@ api.get('/getPublicationById/:id', PublicationController.getPublicationById);
 api.get('/getPublications', PublicationController.getPublications);
 api.post('/updatePublicationById/:id', PublicationController.updatePublicationById);
 api.get('/getPublicationByOwner/:id', PublicationController.getPublicationByOwner);
+api.post('/getSearchPublication', PublicationController.getSearchPublication);
 
 module.exports = api;

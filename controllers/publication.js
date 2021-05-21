@@ -125,10 +125,40 @@ function getPublicationByOwner(req, res) {
     }
 }
 
+function getSearchPublication(req, res) {
+    var params = req.body;
+    var text = params.text;
+    var categorie = params.categorie;
+    var location = params.location;
+
+    console.log(req.body);
+
+    if(text == "" || text == " ") text = null;
+    if(categorie == "" || categorie == " ") categorie = null;
+    if(location == "" || location == " ") location = null;
+
+    Publication.getSearchPublication({text: text, categorie: categorie, location: location}, (error, data) => {
+        if(error) {
+            if(error.kind === "not_found") {
+                return res.status(404).send({message: 'No se ha encontrado las publicaciones.'});
+            } else {
+                return res.status(500).send({message: 'Error al consultar las publicaciones.'});
+            }
+        } else {
+            if(data) {
+                return res.status(200).send(data[0]);
+            } else {
+                return res.status(404).send({ message: 'No se ha encontrado las publicaciones.' });
+            }
+        }
+    });
+}
+
 module.exports = {
     addPublication,
     getPublicationById,
     getPublications,
     updatePublicationById,
-    getPublicationByOwner
+    getPublicationByOwner,
+    getSearchPublication
 }
