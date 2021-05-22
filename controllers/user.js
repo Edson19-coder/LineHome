@@ -1,5 +1,10 @@
 const User = require('../models/user');
 
+var fs = require('fs');
+var path = require('path');
+//const { param } = require('../routes/user');
+
+
 function addUser(req, res) {
 	var params = req.body;
 
@@ -21,7 +26,8 @@ function addUser(req, res) {
                         if(error) return res.status(500).send({ message: 'Error al crear el usuario' } );
             
                         if(data) { 
-                            return res.status(200).send({ user:data }); 
+                            
+                            return res.status(200).send( data ); 
                         } else {
                             return res.status(404).send({ message: 'No se ha registrado el usuario.' });
                         }
@@ -64,7 +70,7 @@ function getUserByUserOrEmailAndPassword(req, res) {
                 }
             } else {
                 if(data) {
-                    return res.status(200).send({ user:data }); 
+                    return res.status(200).send(data); 
                 } else {
                     return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
                 }
@@ -119,9 +125,37 @@ function updateUser(req, res) {
     });
 }
 
+function uploadImage(req, res) {
+	var userId = req.params.id;
+    var params = req.body;
+
+    if(userId != null && params.imageUrl != null) {
+        const base64Decode = Buffer.from(params.imageUrl, "base64");
+
+        User.uploadImage(userId, base64Decode, (error, data) => {
+            if(error) {
+                if(error.kind === "not_found") {
+                    return res.status(404).send({ message: 'No se ha encontrado el usuario.' });
+                } else {
+                    return res.status(500).send({ message: 'Error al actualizar el usuario' } );
+                }
+            } else {
+                if(data) {
+                    return res.status(200).send({ user:data }); 
+                } else {
+                    return res.status(404).send({ message: 'No se ha actualizado el usuario.' });
+                }
+            }
+        })
+        console.log(base64Decode);
+        return res.status(200).send({ message: "success" });
+    }
+}
+
 module.exports = {
 	addUser, 
     getUserByUserOrEmailAndPassword, 
     getUserById,
-    updateUser
+    updateUser,
+    uploadImage
 }

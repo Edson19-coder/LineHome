@@ -16,8 +16,9 @@ User.addUser = (newUser, result) => {
             return;
         }
 
-        console.log("created user: ", { id: res.insertId, ...newUser });
-        result(null, { id: res.insertId, ...newUser });
+        newUser.id = res.insertId;
+        console.log("created user: ", newUser);
+        result(null, newUser );
     });
 };
 
@@ -30,7 +31,7 @@ User.checkRegisterUser = (newUser, result) => {
         }
 
         if(res.length) {
-            console.log("found user: ", res[0]);
+           // console.log("found customer: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -41,7 +42,7 @@ User.checkRegisterUser = (newUser, result) => {
 };
 
 User.getUserByUserOrEmailAndPassword = (user, result) => {
-    sql.query(`SELECT * FROM user WHERE userName = "${user.userName}" OR email = "${user.email}" AND password = "${user.password}"`, (error, res) => {
+    sql.query(`SELECT * FROM user WHERE userName = "${user.userName}" AND password = "${user.password}" OR email = "${user.email}" AND password = "${user.password}"`, (error, res) => {
         if(error) {
             console.log("error: ", error);
             result(error, null);
@@ -49,7 +50,14 @@ User.getUserByUserOrEmailAndPassword = (user, result) => {
         }
 
         if(res.length) {
-            console.log("found user: ", res[0]);
+
+            if(res[0].imageUrl != null) {
+                var buffer = new Buffer.from( res[0].imageUrl, 'binary' );
+                var bufferBase64 = buffer.toString('base64');
+                res[0].imageUrl = bufferBase64;
+            }
+
+            //console.log("found customer: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -68,7 +76,14 @@ User.getUserById = (id, result) => {
         }
 
         if(res.length) {
-            console.log("found user: ", res[0]);
+            if(res[0].imageUrl != null) {
+                var buffer = new Buffer.from( res[0].imageUrl, 'binary' );
+                var bufferBase64 = buffer.toString('base64');
+                res[0].imageUrl = bufferBase64;
+            }
+
+            //console.log("found user: ", res[0]);
+
             result(null, res[0]);
             return;
         }
@@ -96,6 +111,23 @@ User.updateUser = (user, result) => {
     
           console.log("updated user: ", { id: user.id, ...user });
           result(null, { id: user.id, ...user });
+    });
+};
+
+User.uploadImage = (id, imageBlop, result) => {
+    sql.query(`UPDATE user SET imageUrl = ? WHERE user.id = ?;`, [imageBlop, id], (error, res) => {
+        if(error) {
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+
+        if(res.affectedRows == 0) {
+            result({kind: "not_found"}, null);
+            return;
+        }
+
+        //console.log("updated user: ", { id: id});
     });
 };
 
