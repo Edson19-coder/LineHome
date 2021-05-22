@@ -76,7 +76,6 @@ User.getUserById = (id, result) => {
         }
 
         if(res.length) {
-
             if(res[0].imageUrl != null) {
                 var buffer = new Buffer.from( res[0].imageUrl, 'binary' );
                 var bufferBase64 = buffer.toString('base64');
@@ -84,6 +83,7 @@ User.getUserById = (id, result) => {
             }
 
             //console.log("found user: ", res[0]);
+
             result(null, res[0]);
             return;
         }
